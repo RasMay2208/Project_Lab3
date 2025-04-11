@@ -1,83 +1,79 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f8f9fa;
-        }
-        .register-container {
-            width: 360px;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        h2 {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .form-control {
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .btn-register {
-            background-color: #28a745;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
-            padding: 12px;
-            width: 100%;
-        }
-        .btn-register:hover {
-    background-color: #218838;
-    color: white;
-}
-        .login-text {
-            margin-top: 12px;
-            font-size: 14px;
-        }
-        .login-link {
-            color: #007bff;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .login-link:hover {
-            text-decoration: underline;
-        }
-        
-    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>SB Admin 2 - Register</title>
+  <!-- Custom fonts for this template-->
+  <link href="{{ asset('admin_assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('admin_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div class="register-container">
-        <h2>Đăng ký</h2>
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <div class="mb-3">
-                <input type="text" name="username" class="form-control" placeholder="Username" required>
+<body class="bg-gradient-primary">
+  <div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+              </div>
+              <form action="{{ route('register.save') }}" method="POST" class="user">
+                @csrf
+                <div class="form-group">
+                  <input name="name" type="text" class="form-control form-control-user @error('name')is-invalid @enderror" id="exampleInputName" placeholder="Name">
+                  @error('name')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <input name="email" type="email" class="form-control form-control-user @error('email')is-invalid @enderror" id="exampleInputEmail" placeholder="Email Address">
+                  @error('email')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                  @enderror
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input name="password" type="password" class="form-control form-control-user @error('password')is-invalid @enderror" id="exampleInputPassword" placeholder="Password">
+                    @error('password')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                  <div class="col-sm-6">
+                    <input name="password_confirmation" type="password" class="form-control form-control-user @error('password_confirmation')is-invalid @enderror" id="exampleRepeatPassword" placeholder="Repeat Password">
+                    @error('password_confirmation')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
+              </form>
+              <hr>
+              <div class="text-center">
+                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+              </div>
             </div>
-            <div class="mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Email" required>
-            </div>
-            <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
-            </div>
-            <div class="mb-3">
-                <input type="password" name="password_confirmation" class="form-control" placeholder="Nhập lại mật khẩu" required>
-            </div>
-            <button type="submit" class="btn btn-register">Đăng ký</button>
-        </form>
-        <p class="login-text">
-            Đã có tài khoản? <a href="{{ route('login') }}" class="login-link">Đăng nhập</a>
-        </p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{ asset('admin_assets/vendor/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  
+  <!-- Core plugin JavaScript-->
+  <script src="{{ asset('admin_assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+  
+  <!-- Custom scripts for all pages-->
+  <script src="{{ asset('admin_assets/js/sb-admin-2.min.js') }}"></script>
 </body>
 </html>

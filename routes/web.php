@@ -1,46 +1,37 @@
 <?php
-use App\Http\Controllers\PasswordResetController;
-//use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+ 
 use Illuminate\Support\Facades\Route;
-//use App\Http\Controllers\Auth\RegisterController;
-
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+ 
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Routes User Management
-Route::middleware(['auth'])->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::post('/users/{id}/update', [UserController::class, 'update'])->name('users.update');
-    Route::get('/users/{id}/delete', [UserController::class, 'destroy'])->name('users.delete');
+ 
+Route::controller(AuthController::class)->group(function () {
+    Route::get('register', 'register')->name('register');
+    Route::post('register', 'registerSave')->name('register.save');
+  
+    Route::get('login', 'login')->name('login');
+    Route::post('login', 'loginAction')->name('login.action');
+  
+    Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
-
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
-Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-
-Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
-
-
-
-
-
-Route::get('/forgot-password', [PasswordResetController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
-Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
-Route::post('/reset-password', [PasswordResetController::class, 'updatePassword'])->name('password.update');
-
-//Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-//Route::post('/register', [RegisterController::class, 'register']);
+  
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+ 
+    Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('', 'index')->name('products');
+        Route::get('create', 'create')->name('products.create');
+        Route::post('store', 'store')->name('products.store');
+        Route::get('show/{id}', 'show')->name('products.show');
+        Route::get('edit/{id}', 'edit')->name('products.edit');
+        Route::put('edit/{id}', 'update')->name('products.update');
+        Route::delete('destroy/{id}', 'destroy')->name('products.destroy');
+    });
+ 
+    Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
+});

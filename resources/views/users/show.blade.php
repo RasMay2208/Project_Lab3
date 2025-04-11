@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
     }
-    /* Header */
+    
     .header {
       background-color: #fff;
       border-bottom: 1px solid #ddd;
@@ -26,9 +26,9 @@
     .header a {
       text-decoration: none;
       font-weight: bold;
-      color: #28a745; /* Xanh lá */
+      color: #28a745; 
     }
-    /* Container Box */
+    
     .container-box {
       background-color: #fff;
       max-width: 450px;

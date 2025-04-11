@@ -71,13 +71,13 @@
 </head>
 <body>
 
-  <!-- Header -->
+  
   <div class="header">
     <a href="{{ route('users.index') }}">Home</a>
     <a href="{{ route('logout') }}">Đăng xuất</a>
   </div>
 
-  <!-- Form chỉnh sửa -->
+
   <div class="container-box">
     <h3>Chỉnh sửa thông tin người dùng</h3>
     @if(session('success'))
@@ -99,7 +99,7 @@
     </form>
   </div>
 
-  <!-- Footer -->
+  
   <div class="footer">
     <p>Lập trình web @01/2024</p>
   </div>
